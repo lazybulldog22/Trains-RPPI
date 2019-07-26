@@ -1,4 +1,6 @@
 //imports
+import database.dataProviders.AuditLogDataProvider;
+import dto.AuditLogDTO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.List;
 
 
 public class Main extends Application implements EventHandler<ActionEvent> {
@@ -33,13 +36,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     ComboBox<String> comboBoxRegion = new ComboBox<String>();
     ComboBox<String> comboBoxStation = new ComboBox<String>();
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("org.hibernate.tutorial.jpa");
-    EntityManager entityManager = EntityManagerFactory.createEntityManager();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        System.out.println("Application has started");
 
+        List<AuditLogDTO> audtLogs = AuditLogDataProvider.getAllAuditLogs();
+
+        for(AuditLogDTO auditLog : audtLogs) {
+            System.out.println(auditLog.toString() + "\n");
+        }
+
+        System.out.println("Application has finished");
 
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
